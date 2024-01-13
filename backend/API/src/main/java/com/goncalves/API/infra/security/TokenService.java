@@ -5,7 +5,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.goncalves.API.entities.user.Users;
+import com.goncalves.API.entities.user.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -26,16 +26,16 @@ public class TokenService {
     /**
      * Gera um token JWT para o usuário.
      *
-     * @param users Usuário para o qual o token será gerado.
+     * @param user Usuário para o qual o token será gerado.
      * @return Token JWT gerado.
      * @throws RuntimeException Se ocorrer um erro durante a geração do token.
      */
-    public String generateToken(Users users) {
+    public String generateToken(User user) {
         try {
             var algorithm = Algorithm.HMAC256(secret);
             return JWT.create()
                     .withIssuer("auth0")
-                    .withSubject(users.getUsername())
+                    .withSubject(user.getUsername())
                     .withExpiresAt(dataExpiracao())
                     .sign(algorithm);
         } catch (JWTCreationException exception) {
