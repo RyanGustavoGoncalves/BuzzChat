@@ -1,0 +1,11 @@
+.footer{
+    display:flex;
+    background-color: #7b3ff3;
+    padding: 5px;
+}
+
+.item{
+    margin-right: 1em;
+    font-size: 109%;
+    font-weight: 600;
+}
