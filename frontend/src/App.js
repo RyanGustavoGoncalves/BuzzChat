@@ -1,28 +1,18 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Home from './components/pages/home';
-import Account from './components/pages/account';
-import Register from './components/pages/register';
-import Signin from './components/pages/signin';
 
-import Container from './components/layout/container'
-import Navbar from './components/layout/navbar'
-import Footer from './components/layout/footer'
+import Container from './components/layout/Container';
+import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
 
-function App() {
+function App({ children }) {
   return (
-    <Router>
-      <Navbar/>
-        <Container customClass="min-height">
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/Account' element={<Account />} />
-            <Route path='/Register' element={<Register />} />
-            <Route path='/Signin' element={<Signin />} />
-          </Routes>
-        </Container> 
-      <Footer/>
-    </Router>
+    <>
+      <Navbar />
+      <Container customClass="min-height">
+        {children}
+      </Container>
+      <Footer />
+    </>
   );
 }
 

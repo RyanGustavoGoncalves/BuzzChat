@@ -1,4 +1,3 @@
-import Container from './container';
 import styles from './footer.module.css'
 import {FaInstagram, FaLinkedin} from 'react-icons/fa'
 
