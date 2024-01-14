@@ -3,20 +3,17 @@ package com.goncalves.API.controller;
 import com.goncalves.API.DTO.AuthenticateData;
 import com.goncalves.API.entities.user.User;
 import com.goncalves.API.entities.user.UserRepository;
-import com.goncalves.API.infra.security.ErrorHandling;
-import com.goncalves.API.infra.security.RegistrationException;
-import com.goncalves.API.infra.security.StandardError;
-import com.goncalves.API.infra.security.TokenService;
+import com.goncalves.API.infra.security.*;
 import io.micrometer.common.util.StringUtils;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -81,6 +78,22 @@ public class AuthenticationController {
     private void validateField(String value, String fieldName, String errorMessage) throws RegistrationException {
         if (StringUtils.isBlank(value) || value.length() < 3) {
             throw new RegistrationException(fieldName, errorMessage);
+        }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity login(@RequestBody @Valid AuthenticateData data) {
+        try {
+            var authenticationToken = new UsernamePasswordAuthenticationToken(data.username(), data.password());
+
+            var authentication = manager.authenticate(authenticationToken);
+            //Tratamento de erro caso as credenciais estejam erradas
+
+            var tokenJWT = tokenService.generateToken((User) authentication.getPrincipal());
+
+            return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorValidation("Credenciais inválidas"));
         }
     }
 }
