@@ -1,0 +1,30 @@
+.aside{
+    padding: 3em;
+    background-color:#6c2ebe ;
+    width: 20%;
+    height: 100%;
+    
+}
+
+.list{
+    list-style: none;
+    align-items:center;
+    
+}
+
+.item{
+    font-size: x-large;
+    font-weight: 600;
+    margin-top: 25%;
+}
+
+.item a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.item a:hover{
+    background-color: rgb(163, 119, 245);
+    border-radius: 25px;
+}
