@@ -3,7 +3,7 @@
     background-color:#6c2ebe ;
     width: 20%;
     height: 100%;
-    
+    flex-direction: column;
 }
 
 .list{

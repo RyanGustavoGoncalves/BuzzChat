@@ -6,9 +6,9 @@ import { VscSearch } from "react-icons/vsc";
 
 function Navbar() {
     return (
-        <nav class={styles.navbar}>
+        <nav className={styles.navbar}>
             <Container>
-                <Link to='/'><img src={logo} alt='Bird' class={styles.img} /></Link>
+                <Link to='/'><img src={logo} alt='Bird' className={styles.img} /></Link>
                 <input type="search" placeholder="Pesquisar" className={styles.searchInput}/>
                     <button type="button" className={styles.searchButton}><VscSearch /></button>
             </Container>   
